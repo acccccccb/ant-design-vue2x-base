@@ -1,24 +1,61 @@
 <template>
     <div class="home">
-        <img alt="Vue logo" src="../assets/logo.png" />
-        <HelloWorld msg="Welcome to Your Vue.js App" />
+        <div>
+            <div
+                style="float: left; margin: 5px; box-sizing: border-box"
+                v-for="item in list"
+                :key="item.id"
+            >
+                <div>
+                    <img
+                        style="width: 100%"
+                        :src="item.headImg"
+                        :alt="item.name"
+                    />
+                </div>
+                <div class="flex">
+                    <div style="width: 50%; text-align: left">
+                        {{ item.name }}
+                    </div>
+                    <div style="width: 50%; text-align: right">
+                        {{ item.position }}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
     // @ is an alias to /src
-    import HelloWorld from '@/components/HelloWorld.vue';
+    import http from 'axios';
 
     export default {
         name: 'Home',
-        components: {
-            HelloWorld,
+        data() {
+            return {
+                list: [],
+            };
         },
         created() {
-            console.log('created');
-            const a = 1;
-
-            console.log(a);
+            this.requestApi();
+        },
+        methods: {
+            requestApi() {
+                http.request({
+                    url: '/list',
+                    method: 'get',
+                }).then((res) => {
+                    console.log(res.data);
+                    this.list = res.data.data;
+                });
+            },
         },
     };
 </script>
+<style scoped>
+    .flex {
+        display: flex;
+        justify-content: flex-start;
+    }
+</style>
