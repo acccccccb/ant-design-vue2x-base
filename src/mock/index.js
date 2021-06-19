@@ -4,7 +4,25 @@ const Random = Mock.Random;
 Mock.setup({
     timeout: 400,
 });
-Mock.mock('/list', 'get', () => {
+Mock.mock('/list', 'get', {
+    success: true,
+    'data|100': [
+        {
+            'id|+1': 1,
+            name: () => Random.cname(),
+            'height:|140-210': 140,
+            'weight:|40-200.1"': 40,
+            'age:|12-60': 12,
+            'position:|1': ['前锋', '中锋', '后卫', '守门员'],
+            'rank:|1-100': 1,
+            'price:|2000-5000000': 2000,
+            headImg: () => Random.image(100),
+            checked: false,
+            disabled: false,
+        },
+    ],
+});
+Mock.mock('/list2', 'get', () => {
     const arr = [];
     const positions = ['前锋', '中锋', '后卫', '守门员'];
 

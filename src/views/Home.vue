@@ -2,7 +2,12 @@
     <div class="home">
         <div>
             <div
-                style="float: left; margin: 5px; box-sizing: border-box"
+                style="
+                    float: left;
+                    margin: 5px;
+                    box-sizing: border-box;
+                    display: none;
+                "
                 v-for="item in list"
                 :key="item.id"
             >
@@ -46,7 +51,7 @@
                     url: '/list',
                     method: 'get',
                 }).then((res) => {
-                    console.log(res.data);
+                    console.log(res.data.data);
                     this.list = res.data.data;
                 });
             },
